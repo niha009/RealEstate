@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% load select_listing %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- Filter Listings Form -->
+<form method="get">
+  {{ listings.form|crispy }}
+  <input class="btn btn-secondary" type="submit" />
+</form>
+
+
+<div class="row">
+
+  <!-- List all available / filtered listings -->
+  {% for listing in listings.qs %}
+
+    <!-- 3 listings per row -->
+    {% if forloop.counter0|divisibleby:"3" %}
+        </div>
+        </br></br>
+      <div class="row">
+    {%endif%}
+
+    <!-- Bootstrap Card: Listing -->
+    <div class="col-lg-4">
+      <div class="card">
+
+        <!-- Bootstrap Carousel: Property Images -->
+        <div id="carouselExampleControls{{ listing.id }}" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            {% for img in images_all|select_listing:listing.id %} <!-- CustomFilter to select images to listing -->
+              {% if forloop.first %}
+                <div class="carousel-item active"  style="max-width:900px; height:270px !important;">
+              {% else %}
+                <div class="carousel-item"  style="max-width:900px; height:270px !important;">
+              {% endif %}
+              <img
+                src="../media/{{ img }}"
+                class="card-img-top"
+                alt="{{ listing.property_title }}"
+              />
+              </div>  
+            {% endfor %}
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{ listing.id }}" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls{{ listing.id }}" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
+        <!-- Further details on listing -->
+        <div class="card-body">
+          <h5 class="card-title">{{ listing.property_title }}</h5>
+          <p class="card-text">
+            {{ listing.property_description }}
+          </p>
+          <a href="/listing/{{ listing.id }}" class="btn btn-outline-secondary">Details</a>
+        </div>
+      </div>
+    </div>
+
+  {% empty %}
+  <h5>No objects found.</h5>
+{%endfor%}
+
+{% endblock %}

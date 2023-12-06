@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AdVance RealEstate</title>
+    {% load bootstrap5 %}
+    {% load bootstrap_icons %}
+    {% load static %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="shortcut icon" type="image/jpg" href="{% static 'AdVanceLogo.jpg' %}" >
+    <link rel="stylesheet" href="{% static 'css/listing_detail.css' %}">
+  </head>
+
+  <nav class="navbar fixed-top" style="background-color: white; padding: 0; border-bottom: 1px solid white">
+    <div class="container-fluid" style="background-color: #055831; height: 35px;">
+
+      {% if user.is_authenticated %}
+        <div class="d-flex align-items-center" style="margin-left: auto">
+          <form action="/report/" method="get">
+            <button type="submit" class="btn btn-light" style="padding: 2px 5px 2px 5px; font-size: .8rem; margin-right: 8px;">
+              Filter report
+            </button>
+          </form> 
+          <form action="/listings/upload/" method="get">
+            <button type="submit" class="btn btn-light" style="padding: 2px 5px 2px 5px; font-size: .8rem; margin-right: 8px;">
+              Upload listing
+            </button>
+          </form> 
+          <form action="/accounts/logout" method="get">
+            <button type="submit" class="btn btn-light" style="padding: 2px 5px 2px 5px; font-size: .8rem; margin-right: 8px;">
+              Logout
+            </button>
+          </form>
+        </div>
+        {% else %}
+        <div class="d-flex align-items-center" style="margin-left: auto">
+          <form action="/accounts/login" method="get">
+              <button type="submit" class="btn btn-light" style="padding: 2px 5px 2px 5px; font-size: .8rem; margin-right: 8px;">
+              Login
+              </button>
+          </form> 
+        </div>
+      {% endif %}
+
+    </div>
+    <div class="container-fluid" style="padding: 0">
+      <nav class="navbar navbar-expand navbar-light" style="width: 100%; padding: 0">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">
+            <img src={% static 'AdVanceLogo.jpg' %} height="30" alt="" loading="lazy" />
+          </a>
+          <a class="navbar-brand" href="#"><h3 style="margin: 0;">Advance Home Real Estate</h3></a>
+
+          
+          <ul class="navbar-nav" style="margin-left: auto;">
+            <li class="nav-item">
+              <a class="nav-link" href="/"><button type="button" class="btn btn-light" style="background-color: #CCCCCC">Home</button></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/listings"><button type="button" class="btn btn-light" style="background-color: #CCCCCC">Explore Properties</button></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about"><button type="button" class="btn btn-light" style="background-color: #CCCCCC">About Us</button></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/area"><button type="button" class="btn btn-light" style="background-color: #CCCCCC">Explore Omaha</button></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </nav>
+
+  <body>
+      <div class="container perscont" style="margin-top:130px;">
+          {% block content %}
+          {% endblock %}
+      </div>
+  </body>
+</html>

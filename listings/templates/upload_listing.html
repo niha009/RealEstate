@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<blockquote class="blockquote text-center" style="margin-top:100px;">
+  <h2>Upload a new listing:</h2>
+</blockquote>
+
+<!-- DjangoModelForm to upload new listing -->
+<form method = "post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ listing_form|crispy }}
+  {{ address_form|crispy }}
+  {{ image_form|crispy }}
+  <button  class="btn btn-success" type="submit">Upload</button>
+</form>
+
+{% endblock %}

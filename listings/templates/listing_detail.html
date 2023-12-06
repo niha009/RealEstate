@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<body >
+
+
+    <div class="container">
+    <div class="row"  style="padding-left: 50px">
+        <div class="col-3" style="font-size:23px;margin-left: -50px;font-weight: 500;color: #065834">
+            Selected property        </div>
+        <div class="col-2">
+            <button style="font-size: 16px;background-color: #065834;cursor: pointer;color: white;line-height: 14pt;;width: 250px">CLICK TO CONTACT AGENT TODAY!</button>
+        </div>
+
+    </div>
+<br>
+
+   <div class="row" >
+    {% for img in image_urls %}
+        <div class="col-md-3 mb-3">
+            <img style="height: 260px;width: 100%" src="../media/{{ img }}" alt="image">
+        </div>
+          <div class="col-md-3 mb-3">
+            <img style="height: 260px;width: 100%" src="../media/{{ img }}" alt="image">
+        </div>  <div class="col-md-3 mb-3">
+            <img style="height: 260px;width: 100%" src="../media/{{ img }}" alt="image">
+        </div>  <div class="col-md-3 mb-3">
+            <img style="height: 260px;width: 100%" src="../media/{{ img }}" alt="image">
+        </div>
+    {% endfor %}
+</div>
+
+
+ <br><br>
+    <div class="row" style="padding-left: 2px" >
+
+        <div class="col-3"  >
+            <div class="row">
+                <button style="width: 250px">TYPE - {{ listing.property_type }}</button>
+            </div>
+            <br>
+            <div class="row">
+            <button style="width: 250px;" >ADDRESS - {{ listing.property_address }}</button>
+                    </div>
+        </div>
+     <div class="col-3" >
+                <button style="width: 250px">NEIGHBORHOOD - {{ listing.property_neighborhood }}</button>
+        </div>
+        <div class="col-3">
+                <button>PRICE - ${{ listing.property_price }}</button>
+        </div>
+{% if user.is_authenticated %}
+        <div class="col" style="margin-left: 87%;margin-top: -12%">
+        <a href="/admin/listings/property/{{ listing.id }}/delete/" class="deletelink" onclick="return confirm('Are you sure you want to delete?')">
+
+            <button style="margin-left: 0;cursor: pointer;height: 38px;width: 170px">REMOVE</button></a>
+            <br>  <br>
+                <button style="height: 38px;cursor: pointer;width: 170px" >ADD AS FEATURED</button>
+            <BR><BR>
+             <button style="height: 38px;cursor: pointer;width: 170px" >CHANGE STATUS</button>
+        </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+
+
+  </body>
+   <style>
+       .row>*{
+       padding-left: 0;
+       padding-right: 0;
+   }
+       .row button{
+            font-size: 16px;background-color: black;color: white;width: 200px;font-family: sans-serif;
+            cursor: auto;
+       }
+   </style>
+
+{% endblock %}
